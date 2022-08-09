@@ -1,0 +1,16 @@
+{
+    "name": "hummel/php-frame",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Hummel\\PhpFrame\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hummel",
+            "email": "hummel.julien.pro@gmail.com"
+        }
+    ],
+    "require": {}
+}

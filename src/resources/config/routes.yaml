@@ -1,0 +1,24 @@
+
+# Route definition file for the application.
+
+homepage:
+  routeUri: /
+  controller: App\Controllers\RouterDebugController
+  action: index
+
+demo:
+  routeUri: /user/{id}
+  controller: App\Controllers\DemoController
+  action: showOnce
+  methode: GET/POST          # get/post/put/delete
+  parameters:
+      id:
+        type: int             # int, string, float
+        regex: /^[0-9]{1,3}$/ # regex for validation
+
+routerDebug:
+    routeUri: /router_debug
+    methode: GET
+    controller: App\Controllers\RouterDebugController
+    action: index
+
