@@ -12,5 +12,7 @@
             "email": "hummel.julien.pro@gmail.com"
         }
     ],
-    "require": {}
+    "minimum-stability": "dev",
+    "require": {
+    }
 }
