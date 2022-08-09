@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace Hummel\PhpFrame\Services;
 
-use App\Models\Interfaces\OrmModelInterface;
-use App\Services\PdoAbstract;
+use Hummel\PhpFrame\Models\Interfaces\OrmModelInterface;
+use Hummel\PhpFrame\Services\PdoAbstract;
 
 class OrmSingleton extends PdoAbstract
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Hummel\PhpFrame\Models;
 
-use App\Models\Interfaces\OrmModelInterface;
-use App\Services\OrmSingleton;
+use Hummel\PhpFrame\Models\Interfaces\OrmModelInterface;
+use Hummel\PhpFrame\Services\OrmSingleton;
 
 abstract class OrmAbstract implements OrmModelInterface
 {

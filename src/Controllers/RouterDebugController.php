@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace Hummel\PhpFrame\Controllers;
 
-use App\Models\Route;
-use App\Services\RouterSingleton;
-use App\Controllers\BaseController;
+use Hummel\PhpFrame\Models\Route;
+use Hummel\PhpFrame\Services\RouterSingleton;
+use Hummel\PhpFrame\Controllers\BaseController;
 
 class RouterDebugController extends BaseController
 {
@@ -13,7 +13,7 @@ class RouterDebugController extends BaseController
         $router = RouterSingleton::getInstance();
         $allRoutes = $router->getRoutes();
 
-        $this->render('src/views/routerDebug.php', [
+        $this->render('/src/views/routerDebug.php', [
             'allRoutes' => $allRoutes,
         ]);
     }

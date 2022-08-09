@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers\Traits;
+namespace Hummel\PhpFrame\Controllers\Traits;
 
-use App\Controllers\BaseController;
-use App\Controllers\Interfaces\ControllerInterface;
-use App\Models\Interfaces\RouteInterface;
-use App\Models\Route;
+use Hummel\PhpFrame\Controllers\BaseController;
+use Hummel\PhpFrame\Controllers\Interfaces\ControllerInterface;
+use Hummel\PhpFrame\Models\Interfaces\RouteInterface;
+use Hummel\PhpFrame\Models\Route;
 
 trait HasRouteTrait
 {

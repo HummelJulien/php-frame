@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Traits;
+namespace Hummel\PhpFrame\Controllers\Traits;
 
 interface RenderInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers\Traits;
+namespace Hummel\PhpFrame\Controllers\Traits;
 
-use App\Models\Interfaces\RouteInterface;
+use Hummel\PhpFrame\Models\Interfaces\RouteInterface;
 
 interface HasRouteInterface
 {

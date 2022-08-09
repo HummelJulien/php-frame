@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Hummel\PhpFrame\Models;
 
-use App\Models\OrmAbstract;
+use Hummel\PhpFrame\Models\OrmAbstract;
 
 class User extends OrmAbstract
 {

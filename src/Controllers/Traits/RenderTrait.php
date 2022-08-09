@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Traits;
+namespace Hummel\PhpFrame\Controllers\Traits;
 
 trait RenderTrait
 {
@@ -9,8 +9,8 @@ trait RenderTrait
         $pathArray = explode(DIRECTORY_SEPARATOR, $path);
         $offset = count($pathArray) - 1;
 
-        if (filemtime('../cache/'. $pathArray[$offset]) < filemtime('../'.$path)) {
-            $template = file('../'.$path);
+        if (filemtime($_SERVER['DOCUMENT_ROOT'].'/../cache/'. $pathArray[$offset]) < filemtime($_SERVER['DOCUMENT_ROOT'].'/../'.$path)) {
+            $template = file('/'.$path);
 
             foreach ($template as $key => $value) {
                 $template[$key] = str_replace('{{', '<?= ', $template[$key]);
@@ -19,12 +19,12 @@ trait RenderTrait
                 $template[$key] = str_replace('%}', '; ?>', $template[$key]);
             }
 
-            $myfile = fopen('../cache/'. $pathArray[$offset], "w") or die("Unable to open file!");
+            $myfile = fopen($_SERVER['DOCUMENT_ROOT'].'/../cache/'. $pathArray[$offset], "w") or die("Unable to open file!");
             fwrite($myfile, implode('', $template));
             fclose($myfile);
         }
 
         extract($data, EXTR_OVERWRITE);
-        require '../cache/'. $pathArray[$offset];
+        require $_SERVER['DOCUMENT_ROOT'].'/../cache/'. $pathArray[$offset];
     }
 }

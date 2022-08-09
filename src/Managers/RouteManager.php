@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Managers;
+namespace Hummel\PhpFrame\Managers;
 
-use App\Models\Interfaces\RouteInterface;
+use Hummel\PhpFrame\Models\Interfaces\RouteInterface;
 
 class RouteManager
 {

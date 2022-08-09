@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace Hummel\PhpFrame\Services;
 
-use App\Models\Interfaces\RouteInterface;
-use App\Models\Route;
-use App\Controllers\BaseController;
-use App\Managers\RouteManager;
+use Hummel\PhpFrame\Models\Interfaces\RouteInterface;
+use Hummel\PhpFrame\Models\Route;
+use Hummel\PhpFrame\Controllers\BaseController;
+use Hummel\PhpFrame\Managers\RouteManager;
 
 class RouterSingleton
 {
@@ -48,10 +48,10 @@ class RouterSingleton
      */
     private function __construct()
     {
-        if (file_exists('/config/routes.yaml')) {
-            $routes = yaml_parse_file('/config/routes.yaml');
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].'/../config/routes.yaml')) {
+            $routes = yaml_parse_file($_SERVER['DOCUMENT_ROOT'].'/../config/routes.yaml');
         } else {
-            $routes = yaml_parse_file('vendor/config/routes.yaml');
+            $routes = yaml_parse_file($_SERVER['DOCUMENT_ROOT'].'/../vendor/hummel/php-frame/src/resources/config/routes.yaml');
         }
 
 

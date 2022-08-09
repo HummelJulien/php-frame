@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Interfaces;
+namespace Hummel\PhpFrame\Models\Interfaces;
 
 interface OrmModelInterface
 {

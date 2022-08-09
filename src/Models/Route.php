@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Hummel\PhpFrame\Models;
 
-use App\Controllers\ControllerInterface;
-use App\Models\Interfaces\RouteInterface;
+use Hummel\PhpFrame\Controllers\ControllerInterface;
+use Hummel\PhpFrame\Models\Interfaces\RouteInterface;
 
 class Route implements RouteInterface
 {

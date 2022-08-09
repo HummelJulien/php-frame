@@ -3,12 +3,12 @@
 
 homepage:
   routeUri: /
-  controller: App\Controllers\RouterDebugController
+  controller: Hummel\PhpFrame\Controllers\RouterDebugController
   action: index
 
 demo:
   routeUri: /user/{id}
-  controller: App\Controllers\DemoController
+  controller: Hummel\PhpFrame\Controllers\DemoController
   action: showOnce
   methode: GET/POST          # get/post/put/delete
   parameters:
@@ -19,6 +19,6 @@ demo:
 routerDebug:
     routeUri: /router_debug
     methode: GET
-    controller: App\Controllers\RouterDebugController
+    controller: Hummel\PhpFrame\Controllers\RouterDebugController
     action: index
 
