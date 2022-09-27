@@ -31,8 +31,6 @@ class DemoController extends BaseController
         $id = $this->route->getParams()['id'];
         // extract($this->route->getParams(), EXTR_OVERWRITE);
 
-        var_dump($id);
-
         $user = new User();
         $user->getOneBy(['id' => (int)$id]);
 

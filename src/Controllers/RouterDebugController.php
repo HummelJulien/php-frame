@@ -8,6 +8,14 @@ use Hummel\PhpFrame\Controllers\BaseController;
 
 class RouterDebugController extends BaseController
 {
+    /**
+     * Function index of **RouterController**
+     *
+     * This get all route and call templating system with associed template
+     * **developer purpose**
+     *
+     * @return void
+     */
     public function index()
     {
         $router = RouterSingleton::getInstance();

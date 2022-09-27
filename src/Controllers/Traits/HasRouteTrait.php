@@ -6,13 +6,21 @@ use Hummel\PhpFrame\Controllers\BaseController;
 use Hummel\PhpFrame\Controllers\Interfaces\ControllerInterface;
 use Hummel\PhpFrame\Models\Interfaces\RouteInterface;
 use Hummel\PhpFrame\Models\Route;
-
+/**
+ * @author Hummel julien
+ * @category Hummel\PhpFrame Controller
+ */
 trait HasRouteTrait
 {
+    /**
+     * @var RouteInterface
+     */
     protected RouteInterface $route;
 
     /**
-     * @return Route
+     * Return @var RouteInterface
+     *
+     * @return RouteInterface
      */
     public function getRoute(): RouteInterface
     {
@@ -20,6 +28,8 @@ trait HasRouteTrait
     }
 
     /**
+     * Set @var RouteInterface
+     *
      * @param Route $route
      * @return BaseController
      */

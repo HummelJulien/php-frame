@@ -6,6 +6,8 @@ use Hummel\PhpFrame\Controllers\ControllerInterface;
 use Hummel\PhpFrame\Controllers\Traits\HasRouteInterface;
 use Hummel\PhpFrame\Controllers\Traits\HasRouteTrait;
 use Hummel\PhpFrame\Controllers\Traits\RenderInterface;
+use Hummel\PhpFrame\Controllers\Traits\RenderPDFTrait;
+use Hummel\PhpFrame\Controllers\Traits\SendPDFTrait;
 use Hummel\PhpFrame\Controllers\Traits\RenderTrait;
 use Hummel\PhpFrame\Models\Interfaces\RouteInterface;
 use Hummel\PhpFrame\Models\Route;
@@ -13,10 +15,18 @@ use Hummel\PhpFrame\Models\Route;
 class BaseController implements ControllerInterface, RenderInterface, HasRouteInterface
 {
     use RenderTrait;
+    use RenderPDFTrait;
     use HasRouteTrait;
+    use SendPDFTrait;
 
     public $data;
 
+    /**
+     * Function auto-recursive for secure data
+     *
+     * @param array $data
+     * @return array
+     */
     protected function parsePostDataAndSecureIt(array $data): array
     {
         foreach ($data as $key => $value) {
@@ -32,6 +42,13 @@ class BaseController implements ControllerInterface, RenderInterface, HasRouteIn
         return $data;
     }
 
+    /**
+     * Function call by router for display 404 page's
+     *
+     * @param string|null $path
+     * @param array $data
+     * @return void
+     */
     public static function show404(string $path = null, array $data = []): void
     {
         if (is_null($path)) {

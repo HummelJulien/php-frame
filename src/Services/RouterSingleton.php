@@ -54,7 +54,6 @@ class RouterSingleton
             $routes = yaml_parse_file($_SERVER['DOCUMENT_ROOT'].'/../vendor/hummel/php-frame/src/resources/config/routes.yaml');
         }
 
-
         if ($routes === false || !is_array($routes)) {
             throw new \Exception('Routes file is not valid');
         }
@@ -96,6 +95,7 @@ class RouterSingleton
     protected function getRouteByUri(string $uri) : RouteInterface
     {
         foreach ($this->routes as $route) {
+
             if ($this->routeManager->hasMatch($route, $uri)) {
                 return $route;
             }

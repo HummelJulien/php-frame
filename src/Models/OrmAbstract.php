@@ -3,9 +3,10 @@
 namespace Hummel\PhpFrame\Models;
 
 use Hummel\PhpFrame\Models\Interfaces\OrmModelInterface;
+use Hummel\PhpFrame\Models\Interfaces\JoinableInterface;
 use Hummel\PhpFrame\Services\OrmSingleton;
 
-abstract class OrmAbstract implements OrmModelInterface
+abstract class OrmAbstract implements OrmModelInterface, JoinableInterface
 {
 
     protected OrmSingleton $ormServices;
@@ -19,21 +20,67 @@ abstract class OrmAbstract implements OrmModelInterface
     }
 
     /**
+     * Function hydrate model->data with data matched with @var criteria
+     *
      * @param array $criteria
      * @return $this
      */
-    public function getOneBy(array $criteria): self
+    public function getOneBy(array $criteria): OrmModelInterface
     {
-        $this->data = $this->ormServices->getOneBy($this, $criteria);
+        return $this->ormServices->getOneBy($this, $criteria);
+    }
+
+    /**
+     * Persis object in database
+     * @return self
+     */
+    public function save(): self
+    {
+        $this->ormServices->save($this);
         return $this;
     }
 
     /**
+     * Delete object in database
+     * @return self
+     */
+    public function delete(): self
+    {
+        $this->ormServices->delete($this);
+        return $this;
+    }
+
+    public function withLeft(string $name_second_table, string $cond_table_primary, string $cond_table_secondary): self
+    {
+        $this->ormServices->with('LEFT JOIN', $name_second_table, $cond_table_primary, $cond_table_secondary);
+        return $this;
+    }
+
+    public function withObject(JoinableInterface $model, string $cond_table_primary, string $cond_table_secondary): self
+    {
+        $this->ormServices->withObject($model, $cond_table_primary, $cond_table_secondary);
+        return $this;
+    }
+
+    public function withInner(string $name_second_table, string $cond_table_primary, string $cond_table_secondary): self
+    {
+        $this->ormServices->with('INNER JOIN', $name_second_table, $cond_table_primary, $cond_table_secondary);
+        return $this;
+    }
+
+    /**
+     * Hydrate Array of Model with all entry for this
+     *
      * @return array of objects
      */
     public function getAll(): array
     {
-        return $this->ormServices->getAll($this);;
+        return $this->ormServices->getAll($this);
+    }
+
+    public function getColumn(): array
+    {
+        return $this->column;
     }
 
     /**
@@ -43,7 +90,15 @@ abstract class OrmAbstract implements OrmModelInterface
      */
     public function __set($name, $value)
     {
+        if ($name === 'password') {
+            $value = password_hash($value, PASSWORD_DEFAULT);
+        }
         $this->data[$name] = $value;
+    }
+
+    public function getDataRow()
+    {
+        return $this->data;
     }
 
     /**
