@@ -10,4 +10,5 @@ interface OrmModelInterface
     public function __set($name, $value);
     public function __get($name);
     public function getTableName(): string;
+    public function getDataRow(): ?array;
 }

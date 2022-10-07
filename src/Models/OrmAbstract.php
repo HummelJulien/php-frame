@@ -27,7 +27,18 @@ abstract class OrmAbstract implements OrmModelInterface, JoinableInterface
      */
     public function getOneBy(array $criteria): OrmModelInterface
     {
-        return $this->ormServices->getOneBy($this, $criteria);
+        return $this->ormServices->getBy($this, $criteria);
+    }
+
+    /**
+     * Function hydrate model->data with data matched with @var criteria
+     *
+     * @param array $criteria
+     * @return $this
+     */
+    public function getBy(array $criteria): array
+    {
+        return $this->ormServices->getAll($this, $criteria, $limite = false);
     }
 
     /**
@@ -96,7 +107,7 @@ abstract class OrmAbstract implements OrmModelInterface, JoinableInterface
         $this->data[$name] = $value;
     }
 
-    public function getDataRow()
+    public function getDataRow(): ?array
     {
         return $this->data;
     }

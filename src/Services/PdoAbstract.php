@@ -27,7 +27,7 @@ abstract class PdoAbstract
      * String base for left join contruct
      * @var string
      */
-    protected string $join_string_base = " %s %s ON %s = %s";
+    protected string $join_string_base = " %s %s ON %s = %s ";
 
     /**
      * Left join constructed string
@@ -153,7 +153,7 @@ abstract class PdoAbstract
      * @param $criteria
      * @return array
      */
-    protected final function getTableArrayByCriteria($tableName, $criteria, $selectable): array
+    protected final function getTableArrayByCriteria($tableName, $criteria, $selectable, $limite = true): array
     {
         $this->resetable ? $this->resetPDOObject() : null;
         $select = '';
@@ -197,8 +197,9 @@ abstract class PdoAbstract
             }
             $execute[':'.$key_binding] = $value;
         }
-
-        $sql .= ' LIMIT 1;';
+        if ($limite === true) {
+            $sql .= ' LIMIT 1;';
+        }
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($execute);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -269,9 +270,9 @@ abstract class PdoAbstract
         $stmt->execute($execute);
     }
 
-    protected final function setJoinString(string $type_of_join, string $name_second_table, string $cond_table_primary, string $cond_table_secondary): void
+    protected final function addJoinString(string $type_of_join, string $name_second_table, string $cond_table_primary, string $cond_table_secondary): void
     {
         //"LEFT JOIN %s ON %s = %s";
-        $this->join_string = sprintf($this->join_string_base, $type_of_join, $name_second_table, $cond_table_primary, $cond_table_secondary);
+        $this->join_string .= sprintf($this->join_string_base, $type_of_join, $name_second_table, $cond_table_primary, $cond_table_secondary);
     }
 }

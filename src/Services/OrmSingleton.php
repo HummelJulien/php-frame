@@ -33,12 +33,19 @@ class OrmSingleton extends PdoAbstract
      * @param OrmModelInterface $model
      * @return array
      */
-    public function getAll(OrmModelInterface $model): array
+    public function getAll(OrmModelInterface $model, $criteria = [], $limite = true): array
     {
         $this->addSelectColumn($model);
-        $allElements = $this->getAllRequest($model->getTableName(), $this->select_column_alias);
+        if (!empty($criteria)) {
+            $allElements = $this->getTableArrayByCriteria($model->getTableName(), $criteria, $this->select_column_alias, $limite);
+        } else {
+            $allElements = $this->getAllRequest($model->getTableName(), $this->select_column_alias);
+        }
+
 
         if (empty($allElements) || !is_array($allElements)) {
+            $this->modelJoinable = [];
+            $this->select_column_alias = [];
             return [];
         }
 
@@ -70,13 +77,12 @@ class OrmSingleton extends PdoAbstract
      * @param $criteria
      * @return array
      */
-    public function getOneBy(OrmModelInterface $model, $criteria): OrmModelInterface
+    public function getBy(OrmModelInterface $model, $criteria, $limite = true): OrmModelInterface
     {
         $this->addSelectColumn($model);
-        $returnable = $this->getTableArrayByCriteria($model->getTableName(), $criteria, $this->select_column_alias);
+        $returnable = $this->getTableArrayByCriteria($model->getTableName(), $criteria, $this->select_column_alias, $limite);
+        $elm = new $model;
         foreach ($returnable as $key => $value) {
-
-            $elm = new $model;
             foreach ($this->modelJoinable as $inner_model) {
                 $elm->{$inner_model->getTableName()} = new $inner_model;
             }
@@ -95,7 +101,6 @@ class OrmSingleton extends PdoAbstract
         $this->modelJoinable = [];
         $this->select_column_alias = [];
         return $elm;
-
     }
 
     /**
@@ -132,10 +137,10 @@ class OrmSingleton extends PdoAbstract
             $this->addSelectColumn($model);
         }
         array_push($this->modelJoinable, $model);
-        $this->with('INNER JOIN', $model->getTableName(), $cond_table_primary, $cond_table_secondary);
+        $this->with('LEFT JOIN', $model->getTableName(), $cond_table_primary, $cond_table_secondary);
     }
 
-    protected function addSelectColumn(JoinableInterface $model) {
+    protected function  addSelectColumn(JoinableInterface $model) {
         foreach ($model->getColumn() as $column) {
             $this->select_column_alias = array_merge($this->select_column_alias, [
                 $model->getTableName().'.'.$column      =>      $model->getTableName().'_999_'.$column]);
@@ -153,7 +158,7 @@ class OrmSingleton extends PdoAbstract
      */
     public function with(string $type_of_join, string $name_second_table, string $cond_table_primary, string $cond_table_secondary): void
     {
-        $this->setJoinString($type_of_join, $name_second_table, $cond_table_primary, $cond_table_secondary);
+        $this->addJoinString($type_of_join, $name_second_table, $cond_table_primary, $cond_table_secondary);
     }
 
 
