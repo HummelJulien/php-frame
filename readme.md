@@ -69,7 +69,7 @@ class Model extends OrmAbstract
     }
 }
 ```
-### Than you can use the model in your controller:
+### Than you can use the model:
 ```php
 <?php
     $models = (new Models())->getAll();
@@ -78,7 +78,16 @@ class Model extends OrmAbstract
 
     $model = (new Models())->getOneBy(['column_name_1' => "value", 'column_name_2' => 'value']);
 
+	$model = (new Models())->getBy(['column_name_1' => "value", 'column_name_2' => 'value']);
+
     $model->column_name = 'value';
+
+	$model->save();
+
+	$model->delete();
+
+    $model->withObject(JoinableInterface $model, string $cond_table_primary, string $cond_table_secondary);
+
 ```
 
 ## Controller: example for /user/{id}
